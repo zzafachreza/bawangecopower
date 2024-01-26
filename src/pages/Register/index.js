@@ -14,6 +14,7 @@ import { ImageBackground } from 'react-native';
 export default function Register({ navigation }) {
 
     const [kirim, setKirim] = useState({
+        api_token: api_token,
         nama_lengkap: null,
         email: null,
         password: null
@@ -44,7 +45,7 @@ export default function Register({ navigation }) {
             console.log(kirim);
 
             axios
-                .post(apiURL + 'pengguna', kirim)
+                .post(apiURL + 'register', kirim)
                 .then(res => {
 
                     console.log(res.data);

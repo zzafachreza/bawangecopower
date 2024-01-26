@@ -14,16 +14,26 @@ import 'moment/locale/id';
 import MyCarouser from '../../components/MyCarouser';
 import { Rating } from 'react-native-ratings';
 import LinearGradient from 'react-native-linear-gradient';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 export default function Home({ navigation, route }) {
 
 
-
+  const [fill, seetFill] = useState(85)
   const [user, setUser] = useState({});
   const isFocus = useIsFocused();
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [comp, setComp] = useState({});
+  const [lampu, setLampu] = useState(0);
+  const cekLampu = () => {
+
+    axios.post(apiURL + 'update_lampu').then(res => {
+      console.log(res.data);
+      setLampu(res.data);
+    })
+
+  }
 
   const _getTransaction = async () => {
 
@@ -42,41 +52,6 @@ export default function Home({ navigation, route }) {
     }
   }, [isFocus]);
 
-  const __renderItem = ({ item }) => {
-    return (
-      <TouchableWithoutFeedback onPress={() => navigation.navigate(item.modul, item)}>
-        <View style={{
-          flex: 1,
-          padding: 10,
-          borderWidth: 1,
-          borderRadius: 10,
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderColor: colors.secondary,
-          // backgroundColor: colors.white,
-          margin: 5,
-          height: windowHeight / 8,
-        }}>
-
-          <Image source={{
-            uri: item.image
-          }} style={{
-            // flex: 1,
-            width: 40,
-            height: 40,
-            resizeMode: 'contain'
-          }} />
-          <Text style={{
-            marginTop: 10,
-            fontFamily: fonts.secondary[600],
-            fontSize: 8,
-            color: colors.secondary,
-            textAlign: 'center'
-          }}>{item.judul}</Text>
-        </View>
-      </TouchableWithoutFeedback>
-    )
-  }
 
 
   return (
@@ -93,30 +68,51 @@ export default function Home({ navigation, route }) {
       {/* header */}
       <View style={{
         flexDirection: 'row',
-        alignItems: 'flex-start',
-        backgroundColor: colors.white,
+        alignItems: 'center',
+        margin: 20,
+        backgroundColor: colors.primary,
         padding: 10,
-        height: windowHeight / 6,
+        borderBottomRightRadius: 20,
+        borderTopLeftRadius: 20,
+        // height: windowHeight / 6,
       }}>
+        <View style={{
+          width: 60,
+          height: 60,
+          borderWidth: 1,
+          borderColor: colors.border,
+          overflow: 'hidden',
+          borderRadius: 30,
+          justifyContent: 'center',
+          alignItems: 'center',
+
+        }}>
+
+          <Image source={{
+            uri: user.foto_user
+          }} style={{
+            width: 60,
+            height: 60,
+
+          }} />
+        </View>
 
         <View style={{
           flex: 1,
+          paddingHorizontal: 10,
         }}>
           <Text style={{
-            fontFamily: fonts.secondary[600],
-            fontSize: 15,
-            color: colors.primary
-          }}>Selamat datang, {user.nama_lengkap} </Text>
-          <Text style={{
             fontFamily: fonts.secondary[800],
+            fontSize: MyDimensi / 2,
+            color: colors.white
+          }}>{user.nama_lengkap}</Text>
+          <Text style={{
+            fontFamily: fonts.secondary[400],
             fontSize: 15,
-            color: colors.primary
+            color: colors.white
           }}>{user.email}</Text>
         </View>
-        <Image source={require('../../assets/logo.png')} style={{
-          width: 60,
-          height: 60,
-        }} />
+
       </View>
       {/* header */}
 
@@ -129,8 +125,66 @@ export default function Home({ navigation, route }) {
         flex: 1,
         justifyContent: 'center',
         padding: 20,
-        backgroundColor: colors.border
+        backgroundColor: colors.white,
+        justifyContent: 'center',
+        alignItems: 'center'
       }}>
+
+        {lampu == 0 && <Image source={require('../../assets/nyala.png')} style={{
+          height: 300,
+          width: 200,
+        }} />}
+        {lampu == 1 && <Image source={require('../../assets/mati.png')} style={{
+          height: 300,
+          width: 200,
+        }} />}
+
+        {/* <Text style={{
+          fontFamily: fonts.secondary[600],
+          fontSize: MyDimensi / 2,
+          marginBottom: 10,
+        }}>
+          Today
+        </Text>
+        <AnimatedCircularProgress
+          size={300}
+          width={15}
+          fill={fill}
+          tintColor={colors.primary}
+          backgroundColor={colors.border}>
+          {
+            (fill) => (
+
+              <>
+
+                <Text style={{
+                  fontFamily: fonts.secondary[600],
+                  fontSize: MyDimensi / 1.5,
+                  marginBottom: 10,
+                }}>
+                  Power Battery
+                </Text>
+                <Text style={{
+                  fontFamily: fonts.secondary[600],
+                  fontSize: MyDimensi / 0.5,
+                  textAlign: 'center'
+                }}>
+
+                  {fill}%
+                </Text>
+              </>
+            )
+          }
+        </AnimatedCircularProgress> */}
+
+        <View style={{ marginTop: 10 }}>
+          <TouchableOpacity onPress={cekLampu}>
+            <Image source={lampu == 0 ? require('../../assets/power.png') : require('../../assets/on.png')} style={{
+              width: 100,
+              height: 100,
+            }} />
+          </TouchableOpacity>
+        </View>
 
       </View>
 
@@ -153,13 +207,7 @@ export default function Home({ navigation, route }) {
         </TouchableOpacity>
 
 
-        <TouchableOpacity style={{
-          padding: 10,
-        }}>
-          <Icon type='ionicon' name='time' color={colors.secondary} size={20} />
 
-
-        </TouchableOpacity>
 
 
 

@@ -51,7 +51,7 @@ export default function AccountEdit({ navigation, route }) {
     }, [])
 
     return (
-        <LinearGradient colors={[colors.primary, colors.secondary]} style={{
+        <LinearGradient colors={[colors.white, colors.secondary]} style={{
             flex: 1,
         }}>
             <MyHeader judul="Edit Profile" onPress={() => navigation.goBack()} />
@@ -107,7 +107,7 @@ export default function AccountEdit({ navigation, route }) {
 
                 <MyInput label="Nama lengkap" iconname="person-outline" value={kirim.nama_lengkap} onChangeText={x => setKirim({ ...kirim, nama_lengkap: x })} />
                 <MyGap jarak={5} />
-                <MyInput label="Telepon / Whatsapp" iconname="logo-whatsapp" keyboardType="phone-pad" value={kirim.telepon} onChangeText={x => setKirim({ ...kirim, telepon: x })} />
+                <MyInput label="Email" iconname="mail-outline" value={kirim.email} onChangeText={x => setKirim({ ...kirim, email: x })} />
 
 
                 <MyGap jarak={5} />

@@ -14,6 +14,7 @@ import { ImageBackground } from 'react-native';
 export default function Login({ navigation }) {
 
   const [kirim, setKirim] = useState({
+    api_token: api_token,
     email: null,
     password: null
   });
@@ -53,7 +54,7 @@ export default function Login({ navigation }) {
               message: res.data.message
             })
           } else {
-            storeData('user', res.data.data[0]);
+            storeData('user', res.data.data);
             navigation.replace('Home')
           }
         }).finally(() => {

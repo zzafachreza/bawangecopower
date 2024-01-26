@@ -20,7 +20,7 @@ export const getData = async key => {
 };
 
 
-export const apiURL = 'https://bawangecopower.okeadmin.com/';
+export const apiURL = 'https://bawangecopower.okeadmin.com/api/';
 export const MYAPP = 'Bawang Eco Power';
 export const api_token = 'd4e729bcd8aab6f0a710e8ca3d31524cb5783dd1d63ddbf32fbed278c435605f';
 export const webURL = apiURL.replace("api/", "");
