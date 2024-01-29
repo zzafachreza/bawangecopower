@@ -18,8 +18,42 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 export default function Home({ navigation, route }) {
 
+  var fill = 0;
+  var jam = parseFloat(moment().format('HH'));
 
-  const [fill, seetFill] = useState(85)
+
+  if (jam >= 6 && jam <= 7) {
+    fill = 15;
+  } else if (jam >= 8 && jam <= 9) {
+    fill = 24;
+  } else if (jam >= 10 && jam <= 11) {
+    fill = 40;
+  } else if (jam >= 12 && jam <= 13) {
+    fill = 55;
+  } else if (jam >= 14 && jam <= 15) {
+    fill = 65;
+  } else if (jam >= 16 && jam <= 17) {
+    fill = 85;
+  } else if (jam >= 17 && jam <= 18) {
+    fill = 100;
+  } else if (jam >= 19 && jam <= 20) {
+    fill = 85;
+  } else if (jam >= 21 && jam <= 22) {
+    fill = 65;
+  } else if (jam >= 23 && jam <= 24) {
+    fill = 55;
+  } else if (jam >= 0 && jam <= 1) {
+    fill = 40;
+  } else if (jam >= 2 && jam <= 3) {
+    fill = 24;
+  } else if (jam >= 4 && jam <= 5) {
+    fill = 15;
+  }
+
+
+
+
+
   const [user, setUser] = useState({});
   const isFocus = useIsFocused();
   const [data, setData] = useState([]);
@@ -53,6 +87,8 @@ export default function Home({ navigation, route }) {
   }, [isFocus]);
 
 
+  const [pilih, setPilih] = useState(1);
+
 
   return (
 
@@ -69,7 +105,8 @@ export default function Home({ navigation, route }) {
       <View style={{
         flexDirection: 'row',
         alignItems: 'center',
-        margin: 20,
+        marginTop: 20,
+        marginHorizontal: 20,
         backgroundColor: colors.primary,
         padding: 10,
         borderBottomRightRadius: 20,
@@ -117,76 +154,195 @@ export default function Home({ navigation, route }) {
       {/* header */}
 
 
-
-
-
+      <Text style={{
+        textAlign: 'center',
+        fontFamily: fonts.secondary[600],
+        marginTop: 10,
+      }}>{moment().format('HH:mm')}</Text>
 
       <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        padding: 20,
-        backgroundColor: colors.white,
-        justifyContent: 'center',
-        alignItems: 'center'
+        marginTop: 10,
+        flexDirection: 'row',
+        marginHorizontal: 20,
+        borderWidth: 1,
+        borderColor: colors.secondary,
+        borderRadius: 10,
+        overflow: 'hidden'
       }}>
-
-        {lampu == 0 && <Image source={require('../../assets/nyala.png')} style={{
-          height: 300,
-          width: 200,
-        }} />}
-        {lampu == 1 && <Image source={require('../../assets/mati.png')} style={{
-          height: 300,
-          width: 200,
-        }} />}
-
-        {/* <Text style={{
-          fontFamily: fonts.secondary[600],
-          fontSize: MyDimensi / 2,
-          marginBottom: 10,
+        <TouchableWithoutFeedback onPress={() => {
+          setPilih(1);
         }}>
-          Today
-        </Text>
-        <AnimatedCircularProgress
-          size={300}
-          width={15}
-          fill={fill}
-          tintColor={colors.primary}
-          backgroundColor={colors.border}>
-          {
-            (fill) => (
+          <View style={{
+            padding: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: pilih == 1 ? colors.primary : colors.white,
+            flex: 1,
+          }}>
+            <Text style={{
+              fontFamily: fonts.secondary[600],
+              fontSize: MyDimensi / 2,
+              color: pilih == 1 ? colors.white : colors.primary,
+            }}>Solar Panel</Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => {
+          setPilih(0)
+        }}>
+          <View style={{
+            padding: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: pilih == 0 ? colors.primary : colors.white,
+            flex: 1,
+          }}>
+            <Text style={{
+              fontFamily: fonts.secondary[600],
+              fontSize: MyDimensi / 2,
+              color: pilih == 0 ? colors.white : colors.primary,
+            }}>Lights</Text>
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
 
-              <>
 
-                <Text style={{
-                  fontFamily: fonts.secondary[600],
-                  fontSize: MyDimensi / 1.5,
-                  marginBottom: 10,
-                }}>
-                  Power Battery
-                </Text>
-                <Text style={{
-                  fontFamily: fonts.secondary[600],
-                  fontSize: MyDimensi / 0.5,
-                  textAlign: 'center'
-                }}>
+      {pilih == 1 &&
 
-                  {fill}%
-                </Text>
-              </>
-            )
-          }
-        </AnimatedCircularProgress> */}
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          padding: 20,
+          backgroundColor: colors.white,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
 
-        <View style={{ marginTop: 10 }}>
-          <TouchableOpacity onPress={cekLampu}>
-            <Image source={lampu == 0 ? require('../../assets/power.png') : require('../../assets/on.png')} style={{
-              width: 100,
-              height: 100,
-            }} />
-          </TouchableOpacity>
+          {lampu == 0 && <Image source={require('../../assets/nyala.png')} style={{
+            height: 60,
+            width: 40,
+          }} />}
+          {lampu == 1 && <Image source={require('../../assets/mati.png')} style={{
+            height: 60,
+            width: 40,
+          }} />}
+
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: MyDimensi / 2,
+            marginBottom: 10,
+          }}>
+            Today
+          </Text>
+          <AnimatedCircularProgress
+            size={300}
+            width={15}
+            fill={fill}
+            tintColor={colors.primary}
+            backgroundColor={colors.border}>
+            {
+              (fill) => (
+
+                <>
+
+                  <Text style={{
+                    fontFamily: fonts.secondary[600],
+                    fontSize: MyDimensi / 1.5,
+                    marginBottom: 10,
+                  }}>
+                    Power Battery
+                  </Text>
+                  <Text style={{
+                    fontFamily: fonts.secondary[600],
+                    fontSize: MyDimensi / 0.5,
+                    textAlign: 'center'
+                  }}>
+
+                    {fill}%
+                  </Text>
+                </>
+              )
+            }
+          </AnimatedCircularProgress>
+
+          <View style={{ marginTop: 10 }}>
+            <TouchableOpacity onPress={cekLampu}>
+              <Image source={lampu == 0 ? require('../../assets/power.png') : require('../../assets/on.png')} style={{
+                width: 100,
+                height: 100,
+              }} />
+            </TouchableOpacity>
+          </View>
+
         </View>
 
-      </View>
+      }
+
+
+      {pilih == 0 &&
+
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          padding: 20,
+          backgroundColor: colors.white,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+
+
+
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: MyDimensi / 2,
+            marginBottom: 10,
+          }}>
+            Lamp Intensity
+          </Text>
+          <AnimatedCircularProgress
+            size={300}
+            width={15}
+            fill={fill}
+            tintColor={colors.primary}
+            backgroundColor={colors.border}>
+            {
+              (fill) => (
+
+                <>
+
+
+                  <Text style={{
+                    fontFamily: fonts.secondary[600],
+                    fontSize: MyDimensi / 0.5,
+                    textAlign: 'center'
+                  }}>
+
+                    {fill}%
+                  </Text>
+                  <Text style={{
+                    fontFamily: fonts.secondary[600],
+                    fontSize: MyDimensi / 2,
+                    color: '#959595',
+                    marginBottom: 10,
+                  }}>
+                    Power Consumption
+                  </Text>
+                  <Text style={{
+                    fontFamily: fonts.secondary[600],
+                    fontSize: MyDimensi / 2,
+                    color: colors.primary,
+                    marginBottom: 10,
+                  }}>
+                    12W/Hr
+                  </Text>
+                </>
+              )
+            }
+          </AnimatedCircularProgress>
+
+
+        </View>
+
+      }
 
 
 
