@@ -15,6 +15,7 @@ import MyCarouser from '../../components/MyCarouser';
 import { Rating } from 'react-native-ratings';
 import LinearGradient from 'react-native-linear-gradient';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import Slider from '@react-native-community/slider';
 
 export default function Home({ navigation, route }) {
 
@@ -217,19 +218,11 @@ export default function Home({ navigation, route }) {
           alignItems: 'center'
         }}>
 
-          {lampu == 0 && <Image source={require('../../assets/nyala.png')} style={{
-            height: 60,
-            width: 40,
-          }} />}
-          {lampu == 1 && <Image source={require('../../assets/mati.png')} style={{
-            height: 60,
-            width: 40,
-          }} />}
 
           <Text style={{
             fontFamily: fonts.secondary[600],
             fontSize: MyDimensi / 2,
-            marginBottom: 10,
+            marginBottom: 5,
           }}>
             Today
           </Text>
@@ -244,6 +237,14 @@ export default function Home({ navigation, route }) {
 
                 <>
 
+                  {lampu == 0 && <Image source={require('../../assets/nyala.png')} style={{
+                    height: 60,
+                    width: 40,
+                  }} />}
+                  {lampu == 1 && <Image source={require('../../assets/mati.png')} style={{
+                    height: 60,
+                    width: 40,
+                  }} />}
                   <Text style={{
                     fontFamily: fonts.secondary[600],
                     fontSize: MyDimensi / 1.5,
@@ -271,7 +272,16 @@ export default function Home({ navigation, route }) {
                 height: 100,
               }} />
             </TouchableOpacity>
+
           </View>
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: MyDimensi / 2.5,
+          }}>Click to turn <Text style={{
+            color: colors.danger
+          }}>on</Text>/<Text style={{
+            color: colors.primary
+          }}>off</Text> the solar panel!</Text>
 
         </View>
 
@@ -301,7 +311,7 @@ export default function Home({ navigation, route }) {
           <AnimatedCircularProgress
             size={300}
             width={15}
-            fill={fill}
+            fill={100}
             tintColor={colors.primary}
             backgroundColor={colors.border}>
             {
@@ -316,7 +326,7 @@ export default function Home({ navigation, route }) {
                     textAlign: 'center'
                   }}>
 
-                    {fill}%
+                    100%
                   </Text>
                   <Text style={{
                     fontFamily: fonts.secondary[600],
@@ -339,7 +349,39 @@ export default function Home({ navigation, route }) {
             }
           </AnimatedCircularProgress>
 
+          <View style={{
+            padding: 10,
+            height: 40,
+            position: 'relative',
+            width: '100%',
+            marginTop: 20,
+          }}>
+            <Image source={require('../../assets/line.png')} style={{
+              width: 360,
+              resizeMode: 'contain',
+              height: 10,
+              top: 30,
+              position: 'absolute'
+            }} />
+            <Slider
+              style={{ width: '100%', height: 50 }}
+              value={50}
+              minimumValue={0}
+              thumbImage={require('../../assets/pad.png')}
+              maximumValue={100}
+              minimumTrackTintColor={colors.primary}
+              maximumTrackTintColor="#000000"
+            />
+          </View>
 
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: MyDimensi / 2.5,
+            color: colors.black,
+            marginTop: 10,
+          }}>
+            Color Temperature
+          </Text>
         </View>
 
       }
