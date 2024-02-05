@@ -9,7 +9,7 @@ import {
     Alert,
     ActivityIndicator,
 } from 'react-native';
-import { windowWidth, fonts } from '../../utils/fonts';
+import { windowWidth, fonts, MyDimensi } from '../../utils/fonts';
 import { getData, MYAPP, storeData, urlAPI, urlApp, urlAvatar } from '../../utils/localStorage';
 import { colors } from '../../utils/colors';
 import { MyButton, MyGap, MyHeader } from '../../components';
@@ -102,7 +102,7 @@ export default function ({ navigation, route }) {
         }}>
 
 
-            <MyHeader judul="Profile" onPress={() => navigation.goBack()} />
+
             {!open && <View style={{
                 flex: 1,
                 justifyContent: 'center',
@@ -114,36 +114,63 @@ export default function ({ navigation, route }) {
                 {open &&
                     <>
 
+                        {/* header */}
+                        <View style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginTop: 20,
+                            marginHorizontal: 20,
+                            backgroundColor: colors.primary,
+                            padding: 10,
+                            borderBottomRightRadius: 20,
+                            borderTopLeftRadius: 20,
+                            // height: windowHeight / 6,
+                        }}>
+                            <View style={{
+                                width: 60,
+                                height: 60,
+                                borderWidth: 1,
+                                borderColor: colors.border,
+                                overflow: 'hidden',
+                                borderRadius: 30,
+                                justifyContent: 'center',
+                                alignItems: 'center',
 
+                            }}>
+
+                                <Image source={{
+                                    uri: user.foto_user
+                                }} style={{
+                                    width: 60,
+                                    height: 60,
+
+                                }} />
+                            </View>
+
+                            <View style={{
+                                flex: 1,
+                                paddingHorizontal: 10,
+                            }}>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[800],
+                                    fontSize: MyDimensi / 2,
+                                    color: colors.white
+                                }}>{user.nama_lengkap}</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: 15,
+                                    color: colors.white
+                                }}>{user.email}</Text>
+                            </View>
+
+                        </View>
+                        {/* header */}
                         <View style={{
                             margin: 5,
                             flex: 1,
                             marginTop: 20,
                         }}>
-                            <View style={{
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                                <View style={{
-                                    width: 100,
-                                    height: 100,
-                                    borderWidth: 1,
-                                    borderColor: colors.border,
-                                    overflow: 'hidden',
-                                    borderRadius: 20,
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}>
 
-                                    <Image source={{
-                                        uri: user.foto_user
-                                    }} style={{
-                                        width: 100,
-                                        height: 100,
-
-                                    }} />
-                                </View>
-                            </View>
                             <View style={{ padding: 10, }}>
                                 <MyList label="Nama Lengkap" value={user.nama_lengkap} />
                                 <MyList label="Email" value={user.email} />
@@ -163,6 +190,39 @@ export default function ({ navigation, route }) {
                 <MyButton warna={colors.primary} title="Edit Profile" Icons="create-outline" onPress={() => navigation.navigate('AccountEdit', user)} />
                 <MyGap jarak={10} />
                 <MyButton onPress={btnKeluar} warna={colors.border} title="Log Out" Icons="log-out-outline" iconColor={colors.white} colorText={colors.white} />
+            </View>
+            {/* navigation bottom */}
+            <View style={{
+                height: 50,
+                alignItems: 'center',
+                flexDirection: 'row',
+                backgroundColor: colors.white,
+                justifyContent: 'space-around'
+            }}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home')} style={{
+                    padding: 10,
+                }}>
+                    <Icon type='ionicon' name='home' color={colors.border} size={20} />
+
+
+                </TouchableOpacity>
+
+
+
+
+                <TouchableOpacity style={{
+                    padding: 10,
+                }}>
+                    <Icon type='ionicon' name='time' color={colors.border} size={20} />
+                </TouchableOpacity>
+
+
+
+                <TouchableOpacity onPress={() => navigation.navigate('Account')} style={{
+                    padding: 10,
+                }}>
+                    <Icon type='ionicon' name='person' color={colors.primary} size={20} />
+                </TouchableOpacity>
             </View>
         </LinearGradient >
     );

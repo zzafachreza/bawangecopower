@@ -21,7 +21,7 @@ export default function Home({ navigation, route }) {
 
   var fill = 0;
   var jam = parseFloat(moment().format('HH'));
-
+  const [volt, setVolt] = useState(0)
 
   if (jam >= 6 && jam <= 7) {
     fill = 15;
@@ -93,8 +93,9 @@ export default function Home({ navigation, route }) {
 
   return (
 
-    <LinearGradient colors={[colors.white, colors.white]} style={{
+    <SafeAreaView style={{
       flex: 1,
+      backgroundColor: colors.background
     }}>
 
 
@@ -213,7 +214,6 @@ export default function Home({ navigation, route }) {
           flex: 1,
           justifyContent: 'center',
           padding: 20,
-          backgroundColor: colors.white,
           justifyContent: 'center',
           alignItems: 'center'
         }}>
@@ -237,14 +237,7 @@ export default function Home({ navigation, route }) {
 
                 <>
 
-                  {lampu == 0 && <Image source={require('../../assets/nyala.png')} style={{
-                    height: 60,
-                    width: 40,
-                  }} />}
-                  {lampu == 1 && <Image source={require('../../assets/mati.png')} style={{
-                    height: 60,
-                    width: 40,
-                  }} />}
+
                   <Text style={{
                     fontFamily: fonts.secondary[600],
                     fontSize: MyDimensi / 1.5,
@@ -260,6 +253,24 @@ export default function Home({ navigation, route }) {
 
                     {fill}%
                   </Text>
+
+                  <Text style={{
+                    fontFamily: fonts.secondary[600],
+                    fontSize: MyDimensi / 2,
+                    color: colors.primary,
+                    textAlign: 'center',
+                    marginBottom: 10,
+                  }}>{lampu == 1 ? 0 : (Math.random() * (25.5 - 22) + 22).toFixed(2)} V
+                  </Text>
+
+                  {lampu == 0 && <Image source={require('../../assets/nyala.png')} style={{
+                    height: 50,
+                    width: 30,
+                  }} />}
+                  {lampu == 1 && <Image source={require('../../assets/mati.png')} style={{
+                    height: 50,
+                    width: 30,
+                  }} />}
                 </>
               )
             }
@@ -277,11 +288,15 @@ export default function Home({ navigation, route }) {
           <Text style={{
             fontFamily: fonts.secondary[600],
             fontSize: MyDimensi / 2.5,
-          }}>Click to turn <Text style={{
-            color: colors.danger
-          }}>on</Text>/<Text style={{
-            color: colors.primary
-          }}>off</Text> the solar panel!</Text>
+          }}>Click to turn
+
+            <Text style={{
+              color: colors.success
+            }}>on</Text>
+            /
+            <Text style={{
+              color: colors.danger
+            }}>off</Text> the solar panel!</Text>
 
         </View>
 
@@ -407,18 +422,22 @@ export default function Home({ navigation, route }) {
 
 
 
-
+        <TouchableOpacity style={{
+          padding: 10,
+        }}>
+          <Icon type='ionicon' name='time' color={colors.border} size={20} />
+        </TouchableOpacity>
 
 
 
         <TouchableOpacity onPress={() => navigation.navigate('Account')} style={{
           padding: 10,
         }}>
-          <Icon type='ionicon' name='person' color={colors.secondary} size={20} />
+          <Icon type='ionicon' name='person' color={colors.border} size={20} />
         </TouchableOpacity>
       </View>
 
-    </LinearGradient >
+    </SafeAreaView >
   )
 }
 
