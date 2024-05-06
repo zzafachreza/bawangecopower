@@ -19,37 +19,12 @@ import Slider from '@react-native-community/slider';
 
 export default function Home({ navigation, route }) {
 
-  var fill = 0;
+  const [fill, setFill] = useState(0);
+  const [fillIMG, setFillIMG] = useState('');
   var jam = parseFloat(moment().format('HH'));
   const [volt, setVolt] = useState(0)
 
-  if (jam >= 6 && jam <= 7) {
-    fill = 15;
-  } else if (jam >= 8 && jam <= 9) {
-    fill = 24;
-  } else if (jam >= 10 && jam <= 11) {
-    fill = 40;
-  } else if (jam >= 12 && jam <= 13) {
-    fill = 55;
-  } else if (jam >= 14 && jam <= 15) {
-    fill = 65;
-  } else if (jam >= 16 && jam <= 17) {
-    fill = 85;
-  } else if (jam >= 17 && jam <= 18) {
-    fill = 100;
-  } else if (jam >= 19 && jam <= 20) {
-    fill = 85;
-  } else if (jam >= 21 && jam <= 22) {
-    fill = 65;
-  } else if (jam >= 23 && jam <= 24) {
-    fill = 55;
-  } else if (jam >= 0 && jam <= 1) {
-    fill = 40;
-  } else if (jam >= 2 && jam <= 3) {
-    fill = 24;
-  } else if (jam >= 4 && jam <= 5) {
-    fill = 15;
-  }
+
 
 
 
@@ -76,6 +51,50 @@ export default function Home({ navigation, route }) {
       console.log(u)
       setUser(u);
     })
+
+    if (jam >= 6 && jam <= 7) {
+
+      setFill(15);
+      setFillIMG(require('../../assets/l15.png'));
+    } else if (jam >= 8 && jam <= 9) {
+
+      setFill(24);
+      setFillIMG(require('../../assets/l24.png'));
+    } else if (jam >= 10 && jam <= 11) {
+      setFill(40);
+      setFillIMG(require('../../assets/l40.png'));
+    } else if (jam >= 12 && jam <= 13) {
+      setFill(55);
+      setFillIMG(require('../../assets/l55.png'));
+    } else if (jam >= 14 && jam <= 15) {
+      setFill(65);
+      setFillIMG(require('../../assets/l65.png'));
+
+    } else if (jam >= 16 && jam <= 17) {
+      setFill(85);
+      setFillIMG(require('../../assets/l85.png'));
+    } else if (jam >= 17 && jam <= 18) {
+      setFill(100)
+      setFillIMG(require('../../assets/l100.png'));;
+    } else if (jam >= 19 && jam <= 20) {
+      setFill(85);
+      setFillIMG(require('../../assets/l85.png'));
+    } else if (jam >= 21 && jam <= 22) {
+      setFill(65);
+      setFillIMG(require('../../assets/l65.png'));
+    } else if (jam >= 23 && jam <= 24) {
+      setFill(55);
+      setFillIMG(require('../../assets/l55.png'));
+    } else if (jam >= 0 && jam <= 1) {
+      setFill(40);
+      setFillIMG(require('../../assets/l40.png'));
+    } else if (jam >= 2 && jam <= 3) {
+      setFill(24);
+      setFillIMG(require('../../assets/l24.png'));
+    } else if (jam >= 4 && jam <= 5) {
+      setFill(15);
+      setFillIMG(require('../../assets/l15.png'));
+    }
 
 
   }
@@ -226,55 +245,50 @@ export default function Home({ navigation, route }) {
           }}>
             Today
           </Text>
-          <AnimatedCircularProgress
-            size={300}
-            width={15}
-            fill={fill}
-            tintColor={colors.primary}
-            backgroundColor={colors.border}>
-            {
-              (fill) => (
-
-                <>
+          <ImageBackground source={fillIMG} style={{
+            width: windowWidth / 1.2,
+            height: windowWidth / 1.2,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <>
 
 
-                  <Text style={{
-                    fontFamily: fonts.secondary[600],
-                    fontSize: MyDimensi / 1.5,
-                    marginBottom: 10,
-                  }}>
-                    Power Battery
-                  </Text>
-                  <Text style={{
-                    fontFamily: fonts.secondary[600],
-                    fontSize: MyDimensi / 0.5,
-                    textAlign: 'center'
-                  }}>
+              <Text style={{
+                fontFamily: fonts.secondary[600],
+                fontSize: MyDimensi / 1.5,
+                marginBottom: 10,
+              }}>
+                Power Battery
+              </Text>
+              <Text style={{
+                fontFamily: fonts.secondary[600],
+                fontSize: MyDimensi / 0.5,
+                textAlign: 'center'
+              }}>
 
-                    {fill}%
-                  </Text>
+                {fill}%
+              </Text>
 
-                  <Text style={{
-                    fontFamily: fonts.secondary[600],
-                    fontSize: MyDimensi / 2,
-                    color: colors.primary,
-                    textAlign: 'center',
-                    marginBottom: 10,
-                  }}>{lampu == 1 ? 0 : (Math.random() * (25.5 - 22) + 22).toFixed(2)} V
-                  </Text>
+              <Text style={{
+                fontFamily: fonts.secondary[600],
+                fontSize: MyDimensi / 2,
+                color: colors.primary,
+                textAlign: 'center',
+                marginBottom: 10,
+              }}>{lampu == 1 ? 0 : (Math.random() * (25.5 - 22) + 22).toFixed(2)} V
+              </Text>
 
-                  {lampu == 0 && <Image source={require('../../assets/nyala.png')} style={{
-                    height: 50,
-                    width: 30,
-                  }} />}
-                  {lampu == 1 && <Image source={require('../../assets/mati.png')} style={{
-                    height: 50,
-                    width: 30,
-                  }} />}
-                </>
-              )
-            }
-          </AnimatedCircularProgress>
+              {lampu == 0 && <Image source={require('../../assets/nyala.png')} style={{
+                height: 50,
+                width: 30,
+              }} />}
+              {lampu == 1 && <Image source={require('../../assets/mati.png')} style={{
+                height: 50,
+                width: 30,
+              }} />}
+            </>
+          </ImageBackground>
 
           <View style={{ marginTop: 10 }}>
             <TouchableOpacity onPress={cekLampu}>
@@ -292,7 +306,7 @@ export default function Home({ navigation, route }) {
 
             <Text style={{
               color: colors.success
-            }}>on</Text>
+            }}> on</Text>
             /
             <Text style={{
               color: colors.danger
@@ -303,7 +317,8 @@ export default function Home({ navigation, route }) {
       }
 
 
-      {pilih == 0 &&
+      {
+        pilih == 0 &&
 
         <View style={{
           flex: 1,
@@ -372,7 +387,7 @@ export default function Home({ navigation, route }) {
             marginTop: 20,
           }}>
             <Image source={require('../../assets/line.png')} style={{
-              width: 360,
+              width: 300,
               resizeMode: 'contain',
               height: 10,
               top: 30,
@@ -382,7 +397,8 @@ export default function Home({ navigation, route }) {
               style={{ width: '100%', height: 50 }}
               value={50}
               minimumValue={0}
-              thumbImage={require('../../assets/pad.png')}
+
+              thumbImage={require('../../assets/pad2.png')}
               maximumValue={100}
               minimumTrackTintColor={colors.primary}
               maximumTrackTintColor="#000000"
